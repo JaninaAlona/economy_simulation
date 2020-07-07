@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Wirtschaftssimulationsspiel
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" type="text/javascript"></script>
+    </head>
+    <body>
+		<!--Spielanleitung-->
+        <p> economy simulation - rules:<br>
+        - time: 20 turns (years)<br>
+        - initial money: 6000 corns<br>
+        - initial population: 100 citizens<br>
+        - initial fields: 400 fields<br>
+        - Every citizen eats 20 corns per year.<br>
+        - The population increases by 1 citizen with 40 corns.<br>
+        - Per field: 2 corns are needed for seeding.<br>
+        - The annual random yield is 1 - 10 corns (1 year after seed).<br>
+        - 1 citizen can cultivate 10 fields.<br>
+        - The selling and purchase of fields takes place in the end of every turn.<br>
+        - random field charge: 1 - 10 corns<br>
+        - As long as there is corn money it is possible to bargain fields.<br>
+        - If there is less than 1 field, less than 1 corn or less than 1 citizen the game is over. 
+        </p><br><br>
+		<!--output für Benutzeraufforderungen-->
+		<p id="userAlert">Benutzeraufforderung:</p>
+		<!--Start des Spiels-->
+		<button type="button" onclick="beginGame();">Spielstart</button><br><br>	
+		<!--Spielstatus-->
+		aktuelles Jahr:<p id="thisYear" class="inline_elem"></p><br>
+		deine Scheffel Korn:<p id="money" class="inline_elem"></p><br>
+        deine Bevölkerung:<p id="people" class="inline_elem"></p><br>
+        arbeitende Bevölkerung:<p id="workingPeople" class="inline_elem"></p><br>	
+		deine Landfläche Acker:<p id="field" class="inline_elem"></p><br>
+		deine bewirtschafteten Ackerflächen:<p id="seededField" class="inline_elem"></p><br>
+        aktuelle Ernte pro Acker:<p id="crop" class="inline_elem"></p><br>
+		aktuelle Gesamternte:<p id="totalCrop" class="inline_elem"></p><br>
+		aktueller Ackerpreis:<p id="charge" class="inline_elem"></p><br>
+        <br><br>
+		<!--Bevölkerung ernähren-->
+        <form name="foodInputForm" id="keepPeople" onsubmit="return nourishPeople();">
+            <label>Bevölkerung ernähren</label>
+            <input name="foodInput" id="nourish" type="number" disabled>
+        </form><br><br>
+		<!--Bevölkerungswachstum-->
+        <form id="peopleToCreate" onsubmit="return createPeople();">
+            <label>Kinder aufziehen</label>
+            <input id="growPeople" type="number" disabled>
+        </form><br><br>
+		<!--Ackerland bewirtschaften-->
+        <form id="inputSeed" onsubmit="return seedField();">
+            <label>Ackerland besäen</label>
+            <input id="seed" type="number" disabled>
+        </form><br><br>
+		<!--Landkauf/-verkauf freischalten-->
+		<button id="trade" type="button" onclick="activateTrade();">Zum Handel</button><br><br><br>	
+		<!--Landkaufeingabefeld-->
+        <form id="inputBuy" onsubmit="return buyField();">
+            <label>Landkauf</label>
+            <input id="buy" type="number" disabled>
+        </form><br><br>
+        <!--Landverkaufeingabefeld-->
+		<form id="inputSell" onsubmit="return sellField();">
+            <label>Landverkauf</label>
+            <input id="sell" type="number" disabled>
+        </form><br><br>
+		<!--nächste Runde starten-->
+        <button id="next" type="button" onclick="turnOfTheYear();" disabled>neues Jahr</button><br><br>
+		<!--Spielverlauf oder -ende hier einblenden-->
+		<p id="game"></p>
+		<script>
+			document.getElementById("nourish").disabled = true;
+			document.getElementById("growPeople").disabled = true;
+			document.getElementById("seed").disabled = true;
+			document.getElementById("buy").disabled = true;
+			document.getElementById("sell").disabled = true;
+			document.getElementById("next").disabled = true;
+		</script>
+    </body>
+</html>
+
